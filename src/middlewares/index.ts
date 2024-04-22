@@ -1,11 +1,8 @@
-import { HandleErrors } from "./handdleErrors.middleware"
-import { IsTaskIdValid } from "./isTaskIdValid.middleware"
-import { IsTaskCategoryIdValid } from "./isTaskCategoryIdValid.middleware"
-import { ValidateBody } from "./validateBody.middleware"
-
-export { 
-    HandleErrors,
-    IsTaskIdValid,
-    IsTaskCategoryIdValid,
-    ValidateBody
-}
+export { HandleErrors } from "./handdleErrors.middleware"
+export { IsTaskIdValid } from "./isTaskIdValid.middleware"
+export { IsTaskCategoryIdValid } from "./isTaskCategoryIdValid.middleware"
+export { isEmailAlreadyRegister } from "./isEmailAlreadyRegister.middleware"
+export { IsCategoryIdValid } from "./isCategoryIdValid.middleware"
+export { ValidateBody } from "./validateBody.middleware"
+export { VerifyToken } from "./verifyToken.middleware"
+export { auth } from "./AuthMiddleware"

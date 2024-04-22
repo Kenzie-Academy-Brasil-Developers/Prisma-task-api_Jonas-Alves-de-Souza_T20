@@ -1,4 +1,17 @@
-import { 
+export { 
+    UserSchema,
+    PromiseUserSchema, 
+    LoginUserSchema,
+    typePromiseUserSchema, 
+    typeCreateUser, 
+    typeUpdateUser, 
+    typeLoginUser,
+    UserReturnSchema,
+    typeUserReturnSchema,
+    typeLoginReturn
+} from "./user.schemas"
+
+export { 
     TaskSchema, 
     typeCreateTask, 
     typePromiseTask,
@@ -6,21 +19,10 @@ import {
     typeTaskCategorySchema 
 } from "./Tasks.schemas"
 
-import { 
+export { 
     CategorySchema, 
     typePromiseCategory, 
     typeCreateCategory,
     typeCaregoryList 
 } from "./Categories.schemas"
 
-export {
-    TaskSchema,
-    typeCreateTask,
-    typePromiseTask,
-    CategorySchema, 
-    typePromiseCategory,
-    typeCreateCategory,
-    typeUpdateTask,
-    typeCaregoryList,
-    typeTaskCategorySchema
-}

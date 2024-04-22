@@ -1,23 +1,64 @@
 import { Router } from "express"
+
 import { TasksControllers } from "../controllers"
-import { IsTaskCategoryIdValid, IsTaskIdValid, ValidateBody } from "../middlewares"
 import { TaskSchema } from "../schemas"
+import { 
+    IsTaskCategoryIdValid, 
+    IsTaskIdValid, 
+    ValidateBody,
+    VerifyToken,
+    auth
+ } from "../middlewares"
+import { container } from "tsyringe"
+import { TasksServices } from "../services"
 
 export const TaskRouter = Router()
 
-const taskControllers = new TasksControllers()
+container.registerSingleton("TasksServices", TasksServices)
+const taskControllers = container.resolve(TasksControllers)
 
 TaskRouter.post(
+
     "/", 
+    IsTaskCategoryIdValid.execute,
     ValidateBody.execute(TaskSchema),
-    IsTaskCategoryIdValid.execute, 
-    taskControllers.create
+    VerifyToken.execute,
+    (req, res) => taskControllers.create(req, res)
+    
 )
-TaskRouter.get("/", taskControllers.findMany)
+TaskRouter.get(
 
-TaskRouter.use("/:id", IsTaskIdValid.execute)
+    "/",
+    VerifyToken.execute, 
+    (req, res) => taskControllers.findMany(req, res)
 
-TaskRouter.get("/:id", taskControllers.findOne)
-TaskRouter.patch("/:id", ValidateBody.execute(TaskSchema), taskControllers.update)
-TaskRouter.delete("/:id", taskControllers.delete)
+)
+
+TaskRouter.use(
+
+    "/:id", 
+    IsTaskIdValid.execute
+
+)
+
+TaskRouter.get(
+
+    "/:id", 
+    (req, res) => taskControllers.findOne(req, res)
+
+)
+
+TaskRouter.patch(
+
+    "/:id", 
+    ValidateBody.execute(TaskSchema), 
+    (req, res) => taskControllers.update(req, res)
+
+)
+TaskRouter.delete(
+
+    "/:id", 
+    (req, res) => taskControllers.delete(req, res)
+
+)
 

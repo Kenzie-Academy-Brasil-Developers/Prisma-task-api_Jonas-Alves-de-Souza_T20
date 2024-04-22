@@ -1,13 +1,13 @@
-import { string, z } from "zod"
+import { z } from "zod"
 
-export type typeCaregoryList ={
+export type typeCaregoryList = {
     categories: Array<string>
 }
 
 export const categorySchema = z.object(
     {
         id: z.number().positive(),
-        name: string().min(1)
+        name: z.string().min(1),
     }
 )
 

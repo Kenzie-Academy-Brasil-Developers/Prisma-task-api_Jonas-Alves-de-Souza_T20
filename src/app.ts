@@ -1,6 +1,11 @@
+import "reflect-metadata"
+import "dotenv/config"
+import "express-async-errors"
+
 import express, { json } from "express"
 import helmet from "helmet"
-import { CategoryRouter, TaskRouter } from "./routers"
+
+import { CategoryRouter, TaskRouter, UserRouter } from "./routers"
 import { HandleErrors } from "./middlewares"
 
 export const app = express()
@@ -8,6 +13,7 @@ export const app = express()
 app.use(helmet())
 app.use(json())
 
+app.use("/users", UserRouter)
 app.use("/tasks", TaskRouter)
 app.use("/categories", CategoryRouter)
 

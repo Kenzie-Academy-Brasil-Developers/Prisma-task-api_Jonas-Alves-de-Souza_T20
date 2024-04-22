@@ -1,9 +1,13 @@
-import { NextFunction, Request, Response } from "express";
-import { prisma } from "../database/prisma";
-import { AppError } from "../erros/appError";
+import { 
+    NextFunction, 
+    Request, 
+    Response 
+} from "express"
 
-export class IsTaskIdValid{
-    static async execute(req: Request, res: Response, next: NextFunction){
+import { prisma } from "../database/prisma"
+
+export class IsTaskIdValid {
+    static async execute(req: Request, res: Response, next: NextFunction) {
         const id = req.params.id
 
         const task = await prisma.task.findFirst({

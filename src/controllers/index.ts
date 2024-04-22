@@ -1,7 +1,3 @@
-import { TasksControllers } from "./Tasks.controllers"
-import { CategoryControllers } from "./Categories.controllers"
-
-export { 
-    TasksControllers,
-    CategoryControllers 
-}
+export { TasksControllers } from "./Tasks.controllers"
+export { CategoryControllers } from "./Categories.controllers"
+export { UserControllers } from "./user.controllers"

@@ -1,14 +1,33 @@
-import { Router } from "express";
-import { CategoryControllers } from "../controllers";
-import { ValidateBody } from "../middlewares";
-import { CategorySchema } from "../schemas";
-import { IsCategoryIdValid } from "../middlewares/isCategoryIdValid.middleware";
+import { Router } from "express"
+import { container } from "tsyringe"
+
+import { CategoryControllers } from "../controllers"
+import { ValidateBody, IsCategoryIdValid, VerifyToken } from "../middlewares"
+import { CategorySchema } from "../schemas"
+import { CategoryServices } from "../services"
 
 export const CategoryRouter = Router()
 
-const categoryController = new CategoryControllers()
+container.registerSingleton("CategoryServices", CategoryServices)
+const categoryController = container.resolve(CategoryControllers)
 
-CategoryRouter.post("/", ValidateBody.execute(CategorySchema), categoryController.create)
+CategoryRouter.post(
 
-CategoryRouter.use("/:id", IsCategoryIdValid.execute)
-CategoryRouter.delete("/:id", categoryController.delete)
+    "/", 
+    /* ValidateBody.execute(CategorySchema), */
+    VerifyToken.execute, 
+    (req, res) => categoryController.create(req, res)
+)
+
+CategoryRouter.use(
+
+    "/:id", 
+    IsCategoryIdValid.execute
+
+)
+CategoryRouter.delete(
+
+    "/:id", 
+    (req, res) => categoryController.delete(req, res)
+
+)
