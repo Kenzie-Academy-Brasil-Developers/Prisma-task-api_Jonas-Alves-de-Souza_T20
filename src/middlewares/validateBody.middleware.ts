@@ -8,7 +8,13 @@ import { AnyZodObject } from "zod"
 
 export class ValidateBody {
     static execute(schema: AnyZodObject) {
-        return(req: Request, res: Response, next: NextFunction) => {
+        return(
+            
+            req: Request, 
+            res: Response, 
+            next: NextFunction
+
+        ) => {
             req.body = schema.parse(req.body)
 
             return next()

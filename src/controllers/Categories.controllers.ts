@@ -6,9 +6,18 @@ import { AppError } from "../erros/appError"
 
 @injectable()
 export class CategoryControllers {
-    constructor(@inject(CategoryServices) private categoryservices: CategoryServices){}
+    
+    constructor( 
+        @inject(CategoryServices) 
+        private categoryservices: CategoryServices 
+    ) {}
       
-    async create (req: Request, res: Response): Promise<Response> {
+    async create (
+
+        req: Request, 
+        res: Response
+
+    ): Promise<Response> {
         const userId = res.locals.decode.id
  
         const response = await this.categoryservices.create(
@@ -18,7 +27,12 @@ export class CategoryControllers {
         return res.status(201).json(response)        
     }
 
-    async delete (req: Request, res: Response): Promise<Response> {
+    async delete (
+
+        req: Request, 
+        res: Response
+
+    ): Promise<Response> {
         
         await this.categoryservices.delete(Number(req.params.id))
         

@@ -86,8 +86,8 @@ export class TasksServices {
 
         const data = await prisma.task.update(
             { 
-                data: body, 
-                where: { id } 
+                where: { id }, 
+                data: body
             }
         )
 

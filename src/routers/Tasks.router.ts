@@ -7,7 +7,7 @@ import {
     IsTaskIdValid, 
     ValidateBody,
     VerifyToken,
-    auth
+    IsTaskOwner
  } from "../middlewares"
 import { container } from "tsyringe"
 import { TasksServices } from "../services"
@@ -36,14 +36,15 @@ TaskRouter.get(
 
 TaskRouter.use(
 
-    "/:id", 
-    IsTaskIdValid.execute
-
+    "/:id",
+    IsTaskIdValid.execute,
+    VerifyToken.execute,
+    IsTaskOwner.execute
 )
 
 TaskRouter.get(
 
-    "/:id", 
+    "/:id",
     (req, res) => taskControllers.findOne(req, res)
 
 )
@@ -55,6 +56,7 @@ TaskRouter.patch(
     (req, res) => taskControllers.update(req, res)
 
 )
+
 TaskRouter.delete(
 
     "/:id", 

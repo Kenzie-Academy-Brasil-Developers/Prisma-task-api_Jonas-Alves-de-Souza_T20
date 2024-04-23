@@ -8,7 +8,7 @@ export const userSchema = z.object(
         id: z.number().positive(),
         name: z.string().min(1),
         email: z.string().email().min(1),
-        password: z.string().min(8),
+        password: z.string().min(1),
         task: z.array(taskSchema).nullish(),
         category: z.array(categorySchema).nullish()
     }

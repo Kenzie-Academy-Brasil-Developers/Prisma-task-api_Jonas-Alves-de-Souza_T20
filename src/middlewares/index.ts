@@ -5,4 +5,6 @@ export { isEmailAlreadyRegister } from "./isEmailAlreadyRegister.middleware"
 export { IsCategoryIdValid } from "./isCategoryIdValid.middleware"
 export { ValidateBody } from "./validateBody.middleware"
 export { VerifyToken } from "./verifyToken.middleware"
-export { auth } from "./AuthMiddleware"
+export { IsTaskOwner } from "./isTaskOwner"
+export { IsCategoryOwner } from "./isCategoryOwner"
+

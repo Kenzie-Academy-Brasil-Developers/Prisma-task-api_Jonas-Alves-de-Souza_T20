@@ -2,7 +2,7 @@ import { Router } from "express"
 import { container } from "tsyringe"
 
 import { CategoryControllers } from "../controllers"
-import { ValidateBody, IsCategoryIdValid, VerifyToken } from "../middlewares"
+import { ValidateBody, IsCategoryIdValid, VerifyToken, IsCategoryOwner } from "../middlewares"
 import { CategorySchema } from "../schemas"
 import { CategoryServices } from "../services"
 
@@ -14,7 +14,7 @@ const categoryController = container.resolve(CategoryControllers)
 CategoryRouter.post(
 
     "/", 
-    /* ValidateBody.execute(CategorySchema), */
+    ValidateBody.execute(CategorySchema),
     VerifyToken.execute, 
     (req, res) => categoryController.create(req, res)
 )
@@ -22,7 +22,9 @@ CategoryRouter.post(
 CategoryRouter.use(
 
     "/:id", 
-    IsCategoryIdValid.execute
+    IsCategoryIdValid.execute,
+    VerifyToken.execute,
+    IsCategoryOwner.execute
 
 )
 CategoryRouter.delete(

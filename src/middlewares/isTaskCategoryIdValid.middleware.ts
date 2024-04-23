@@ -5,9 +5,16 @@ import {
 } from "express"
 
 import { prisma } from "../database/prisma"
+import { AppError } from "../erros/appError"
 
 export class IsTaskCategoryIdValid {
-    static async execute(req: Request, res: Response, next: NextFunction) {
+    static async execute(
+        
+        req: Request, 
+        res: Response, 
+        next: NextFunction
+
+    ) {
         const { categoryId } = req.body
         
         if(!categoryId){
@@ -19,7 +26,7 @@ export class IsTaskCategoryIdValid {
         })
 
         if (!category) {
-            return res.status(404).json({ message: "Category not found"})
+            throw new AppError(404, "Category not found")
         }
 
         return next()

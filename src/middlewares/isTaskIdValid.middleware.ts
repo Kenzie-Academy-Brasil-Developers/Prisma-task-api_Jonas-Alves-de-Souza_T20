@@ -5,9 +5,16 @@ import {
 } from "express"
 
 import { prisma } from "../database/prisma"
+import { AppError } from "../erros/appError"
 
 export class IsTaskIdValid {
-    static async execute(req: Request, res: Response, next: NextFunction) {
+    static async execute(
+        
+        req: Request, 
+        res: Response, 
+        next: NextFunction
+
+    ) {
         const id = req.params.id
 
         const task = await prisma.task.findFirst({
@@ -15,10 +22,8 @@ export class IsTaskIdValid {
             include: { category: true }
         })
 
-        /* console.log(task) */
-
         if(!task){
-            return res.status(404).json({ message: "Task not found"})
+            throw new AppError(404, "Task not found")
         }
 
         res.locals = {...res.locals, task } 
