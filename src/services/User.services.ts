@@ -17,6 +17,7 @@ import { jwtConfig } from "../configs"
 
 @injectable()
 export class UserServices {
+    
     async userRegister(body: typeCreateUser): Promise <typeUserReturnSchema> {
     
         if(!body.password){

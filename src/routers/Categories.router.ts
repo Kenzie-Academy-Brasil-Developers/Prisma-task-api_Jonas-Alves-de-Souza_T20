@@ -20,17 +20,17 @@ const categoryController = container.resolve(CategoryControllers)
 CategoryRouter.post(
 
     "/", 
-    ValidateBody.execute(CategorySchema),
     userAuth.VerifyToken,
+    ValidateBody.execute(CategorySchema),
     (req, res) => categoryController.create(req, res)
 )
 
 CategoryRouter.use(
 
     "/:id", 
-    IsCategoryIdValid.execute,
     userAuth.VerifyToken,
     userAuth.IsCategoryOwner,
+    IsCategoryIdValid.execute
     
 )
 CategoryRouter.delete(

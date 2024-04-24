@@ -1,4 +1,10 @@
-import jwt, { verify } from "jsonwebtoken"
+import {
+     
+    verify, 
+    JsonWebTokenError, 
+    TokenExpiredError 
+
+} from "jsonwebtoken"
 
 import { 
 
@@ -38,9 +44,9 @@ class userAuthentication{
     
             } catch (error) {
     
-                if (error instanceof jwt.JsonWebTokenError) {
+                if (error instanceof JsonWebTokenError) {
                     throw new AppError(401, "Token is invalid")
-                } if (error instanceof jwt.TokenExpiredError) {
+                } if (error instanceof TokenExpiredError) {
                     throw new AppError(401, "Token expired")
                 } else {
                     throw new AppError(500, "Token verification error")

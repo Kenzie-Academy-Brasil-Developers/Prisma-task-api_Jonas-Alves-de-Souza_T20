@@ -21,9 +21,9 @@ const taskControllers = container.resolve(TasksControllers)
 TaskRouter.post(
 
     "/", 
+    userAuth.VerifyToken,
     IsTaskCategoryIdValid.execute,
     ValidateBody.execute(TaskSchema),
-    userAuth.VerifyToken,
     (req, res) => taskControllers.create(req, res)
     
 )
@@ -39,9 +39,9 @@ TaskRouter.get(
 TaskRouter.use(
 
     "/:id",
-    IsTaskIdValid.execute,
     userAuth.VerifyToken,
-    userAuth.IsTaskOwner
+    userAuth.IsTaskOwner,
+    IsTaskIdValid.execute
 )
 
 TaskRouter.get(
