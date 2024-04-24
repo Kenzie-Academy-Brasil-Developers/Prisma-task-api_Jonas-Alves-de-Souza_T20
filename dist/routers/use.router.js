@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.UserRouter = void 0;
+const express_1 = require("express");
+const tsyringe_1 = require("tsyringe");
+const controllers_1 = require("../controllers");
+const middlewares_1 = require("../middlewares");
+const User_services_1 = require("../services/User.services");
+const schemas_1 = require("../schemas");
+exports.UserRouter = (0, express_1.Router)();
+tsyringe_1.container.registerSingleton("UserServices", User_services_1.UserServices);
+const userControllers = tsyringe_1.container.resolve(controllers_1.UserControllers);
+exports.UserRouter.post("/", middlewares_1.isEmailAlreadyRegister.execute, (req, res) => userControllers.userRegister(req, res));
+exports.UserRouter.post("/login", middlewares_1.ValidateBody.execute(schemas_1.LoginUserSchema), (req, res) => userControllers.login(req, res));
+exports.UserRouter.get("/profile", middlewares_1.userAuth.VerifyToken, (req, res) => userControllers.getUser(req, res));
