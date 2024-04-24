@@ -2,7 +2,6 @@ import { Request, Response } from "express"
 import { inject, injectable } from "tsyringe"
 
 import { CategoryServices } from "../services"
-import { AppError } from "../erros/appError"
 
 @injectable()
 export class CategoryControllers {

@@ -5,7 +5,7 @@ import { UserServices } from "../services"
 
 @injectable()
 export class UserControllers {
-    
+
     constructor(
         @inject("UserServices") 
         private userServices: UserServices

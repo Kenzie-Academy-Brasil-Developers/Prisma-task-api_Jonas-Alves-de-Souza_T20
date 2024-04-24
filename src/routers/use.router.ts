@@ -2,7 +2,13 @@ import { Router } from "express"
 import { container } from "tsyringe"
 
 import { UserControllers } from "../controllers"
-import { ValidateBody, VerifyToken, isEmailAlreadyRegister } from "../middlewares"
+import {
+     
+    ValidateBody, 
+    isEmailAlreadyRegister, 
+    userAuth
+
+} from "../middlewares"
 import { UserServices } from "../services/User.services"
 import { LoginUserSchema } from "../schemas"
 
@@ -27,7 +33,7 @@ UserRouter.post(
 )
 UserRouter.get(
     "/profile", 
-    VerifyToken.execute, 
+    userAuth.VerifyToken,
     (req, res) => userControllers.getUser(req, res)
 
 )

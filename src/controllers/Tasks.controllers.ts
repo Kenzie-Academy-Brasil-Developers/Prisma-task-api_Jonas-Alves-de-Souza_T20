@@ -18,10 +18,17 @@ export class TasksControllers {
 
     ): Promise<Response> {
         const userId = res.locals.decode.id
+        const UserSub = res.locals.decode.sub
+
+        console.log(
+            "userID: " + userId,
+            "userSub: " + UserSub 
+        )
         
         const response = await this.taskServices.create(req.body, Number(userId))
+        const response2 = await this.taskServices.create(req.body, Number(UserSub))
         
-        return res.status(201).json(response)
+        return res.status(201).json(response2)
     }
 
     async findMany(
@@ -31,10 +38,11 @@ export class TasksControllers {
 
     ): Promise<Response> { 
         const userId = res.locals.decode.id
+        const userSub = res.locals.decode.sub
         
         const queryParams = query.category ? String(query.category) : undefined   
 
-        const response =  await this.taskServices.findMany(Number(userId), queryParams)
+        const response =  await this.taskServices.findMany(Number(userSub), queryParams)
         
         return res.status(200).json(response)                
     }

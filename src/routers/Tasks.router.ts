@@ -3,11 +3,12 @@ import { Router } from "express"
 import { TasksControllers } from "../controllers"
 import { TaskSchema } from "../schemas"
 import { 
+
     IsTaskCategoryIdValid, 
     IsTaskIdValid, 
     ValidateBody,
-    VerifyToken,
-    IsTaskOwner
+    userAuth
+    
  } from "../middlewares"
 import { container } from "tsyringe"
 import { TasksServices } from "../services"
@@ -22,24 +23,25 @@ TaskRouter.post(
     "/", 
     IsTaskCategoryIdValid.execute,
     ValidateBody.execute(TaskSchema),
-    VerifyToken.execute,
+    userAuth.VerifyToken,
     (req, res) => taskControllers.create(req, res)
     
 )
+
 TaskRouter.get(
-
+    
     "/",
-    VerifyToken.execute, 
+    userAuth.VerifyToken,
     (req, res) => taskControllers.findMany(req, res)
-
+    
 )
 
 TaskRouter.use(
 
     "/:id",
     IsTaskIdValid.execute,
-    VerifyToken.execute,
-    IsTaskOwner.execute
+    userAuth.VerifyToken,
+    userAuth.IsTaskOwner
 )
 
 TaskRouter.get(

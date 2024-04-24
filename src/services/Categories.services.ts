@@ -2,8 +2,10 @@ import { injectable } from "tsyringe"
 
 import { prisma } from "../database/prisma"
 import { 
+
     typeCreateCategory, 
     typePromiseCategory 
+    
 } from "../schemas"
 
 @injectable()
